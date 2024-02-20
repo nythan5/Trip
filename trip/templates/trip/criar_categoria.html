@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Nova Categoria</h2>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Cadastrar</button>
+</form>
+
+{% endblock content %}
