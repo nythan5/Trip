@@ -8,5 +8,7 @@ urlpatterns = [
     path('listar_categorias/', listar_categorias, name='listar_categorias'),
     path('excluir_categoria/<int:categoria_id>',
          excluir_categoria, name='excluir_categoria'),
+    path('atualizar_categoria/<int:categoria_id>',
+         atualizar_categoria, name='atualizar_categoria')
 
 ]

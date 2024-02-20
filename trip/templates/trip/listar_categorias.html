@@ -7,6 +7,7 @@
   <thead>
     <tr>
       <th>Categoria</th>
+      <th>Status</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -14,8 +15,13 @@
     {% for categoria in categorias %}
       <tr>
         <td>{{ categoria.titulo }}</td>
+        <td>{{ categoria.is_active }}</td>
         <td>
-          <button>Editar</button>
+
+          <a href="{% url "trip:atualizar_categoria" categoria.id %}">
+            <button>Editar</button>
+          </a>
+          
           <a href="{% url "trip:excluir_categoria" categoria.id %}">
             <button>Excluir</button>
           </a>
