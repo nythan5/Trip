@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Excluir Categoria</h2>
+<p>Você tem certeza que deseja excluir a categoria "{{ categoria.titulo }}"?</p>
+
+<form method="post" action="">
+  {% csrf_token %}
+  <button type="submit">Confirmar Exclusão</button>
+</form>
+
+<a href="{% url 'trip:listar_categorias' %}">Cancelar</a>
+
+{% endblock content %}

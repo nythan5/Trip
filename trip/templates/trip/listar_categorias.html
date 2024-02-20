@@ -3,10 +3,27 @@
 {% block content %}
 
 <h2>Listar Categorias</h2>
-    <ul>
-        {% for categoria in categorias %}
-            <li>{{ categoria.titulo }}</li>
-        {% endfor %}
-    </ul>
+<table>
+  <thead>
+    <tr>
+      <th>Categoria</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for categoria in categorias %}
+      <tr>
+        <td>{{ categoria.titulo }}</td>
+        <td>
+          <button>Editar</button>
+          <a href="{% url "trip:excluir_categoria" categoria.id %}">
+            <button>Excluir</button>
+          </a>
+           
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock content %}
