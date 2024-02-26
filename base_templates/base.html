@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
+    
 <head>
     {% include "partials/head.html" %}
 </head>
 
 <body>
-    {% block content %}{% endblock content %}
+    <div>
+        {% include "partials/sidebar.html" %}
+    </div>
+    
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
 </body>
 
 <footer> 
