@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Categoria
-from .forms import CategoriaForm
+from .forms.categoria_form import CategoriaForm
 
 
 def criar_categoria(request):
