@@ -2,34 +2,36 @@
 
 {% block content %}
 
-<h2>Listar Categorias</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Categoria</th>
-      <th>Status</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for categoria in categorias %}
+<div class="main-content container ml-2" id="mainContent">
+  <h2>Listar Categorias</h2>
+  <table>
+    <thead>
       <tr>
-        <td>{{ categoria.titulo }}</td>
-        <td>{{ categoria.is_active }}</td>
-        <td>
-
-          <a href="{% url "trip:atualizar_categoria" categoria.id %}">
-            <button>Editar</button>
-          </a>
-          
-          <a href="{% url "trip:excluir_categoria" categoria.id %}">
-            <button>Excluir</button>
-          </a>
-           
-        </td>
+        <th>Categoria</th>
+        <th>Status</th>
+        <th>Ações</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for categoria in categorias %}
+        <tr>
+          <td>{{ categoria.titulo }}</td>
+          <td>{{ categoria.is_active }}</td>
+          <td>
+
+            <a href="{% url "trip:atualizar_categoria" categoria.id %}">
+              <button>Editar</button>
+            </a>
+            
+            <a href="{% url "trip:excluir_categoria" categoria.id %}">
+              <button>Excluir</button>
+            </a>
+
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock content %}

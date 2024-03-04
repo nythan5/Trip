@@ -6,17 +6,20 @@
 </head>
 
 <body>
-    <div>
-        {% include "partials/sidebar.html" %}
+    <div class="d-flex">
+        <div>
+            {% include "partials/sidebar.html" %}
+            {% comment %} <button onclick="toggleSidebar()">Toggle Sidebar</button> {% endcomment %}
+        </div>
+        
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
     </div>
-    
-    <div>
-        {% block content %}{% endblock content %}
-    </div>
-</body>
 
-<footer> 
-    <h2>Aqui é o footer</h2>   
-</footer>
+    {% comment %} <footer> 
+        <h2>Aqui é o footer</h2>   
+    </footer> {% endcomment %}
+</body>
 
 </html>

@@ -5,15 +5,16 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
+/* Sidebar style */
 .sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
+    height: 100vh;
+    width: 220px;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #292929;
     padding-top: 20px;
+    transition: left 0.3s ease;
 }
 
 .sidebar h2 {
@@ -40,4 +41,19 @@ body {
 
 .sidebar a:hover {
     background-color: #575757;
+    text-decoration: none;
+    color: #fff;
 }
+
+/* Main content style */
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+/* .sidebar.active {
+    left: 0;
+}
+
+.main-content.active {
+    margin-left: 250px;
+} */
