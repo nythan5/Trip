@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="main-content container ml-2" id="mainContent">
+<div class="main-content" id="mainContent">
   <h2>Listar Categorias</h2>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Categoria</th>
@@ -20,11 +20,11 @@
           <td>
 
             <a href="{% url "trip:atualizar_categoria" categoria.id %}">
-              <button>Editar</button>
+              <button class="btn btn-sm btn-primary">Editar</button>
             </a>
             
             <a href="{% url "trip:excluir_categoria" categoria.id %}">
-              <button>Excluir</button>
+              <button class="btn btn-sm btn-danger">Excluir</button>
             </a>
 
           </td>
