@@ -18,4 +18,31 @@
 
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/89d4f401d9.js" crossorigin="anonymous"></script>
+
+    
+    <!-- Inclua os estilos do bootstrap-datepicker via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- Inclua o jQuery (necessário para o bootstrap-datepicker) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <!-- Inclua o JavaScript do bootstrap-datepicker via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+    <!-- Inclua o script de inicialização do bootstrap-datepicker -->
+    <script>
+        // Inicialize o datepicker para os campos desejados
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',  // Defina o formato desejado
+                autoclose: true
+            });
+        });
+</script>
+
+    <!-- Inclua a biblioteca inputmask via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+
 </head>

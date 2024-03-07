@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="main-content" id="mainContent">
+  <div class="d-flex align-items-center">
+    <h2 class="me-2">Viagens</h2>  
+    <a  href="{% url "trip:criar_viagem" %}">
+      <button class="btn btn-sm btn-primary">Cadastrar</button>
+    </a>
+  </div>
+
+  <!-- Modal "Editar" -->
+  {% for viagem in viagens %}
+  <div class="modal fade" id="editModal{{ viagem.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ viagem.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ viagem.id }}">Editar Viagem</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="{% url 'trip:atualizar_viagem' viagem.id %}" enctype="multipart/form-data">>
+              {% csrf_token %}
+              <div class="mb-3">
+                  <label for="titulo" class="form-label">Título da Viagem</label>
+                  <input type="text" class="form-control" id="titulo" name="titulo" value="{{ viagem.titulo }}">
+              </div>
+              <div class="mb-3 form-check form-switch">
+                  <label class="form-check-label" for="is_active">Ativo</label>
+                  <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if viagem.is_active %}checked{% endif %}>
+              </div>
+              <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" value="{{ viagem.descricao }}">
+              </div>
+              <div class="mb-3">
+                <label for="custo" class="form-label">Custo</label>
+                <input type="text" class="form-control" id="custo" name="custo" value="{{ viagem.custo }}">
+              </div>
+            <div class="mb-3">
+                <label for="preco" class="form-label">Preco</label>
+                <input type="text" class="form-control" id="preco" name="preco" value="{{ viagem.preco }}">
+              </div>
+              <div class="mb-3">
+                <label for="check_in_data" class="form-label">Data de Check_In</label>
+                <input type="date" class="form-control" id="check_in_data" name="check_in_data" value="{{ viagem.check_in_data|date:'Y-m-d' }}">
+              </div>
+              <div class="mb-3">
+                <label for="check_out_data" class="form-label">Data de Check_Out</label>
+                <input type="date" class="form-control" id="check_out_data" name="check_out_data" value="{{ viagem.check_out_data|date:'Y-m-d' }}">
+              </div>
+              <div class="mb-3">
+                <label for="vagas_disponiveis" class="form-label">Vagas Disponiveis</label>
+                <input type="number" class="form-control" id="vagas_disponiveis" name="vagas_disponiveis" value="{{ viagem.vagas_disponiveis }}">
+              </div>
+             
+              <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End Modal "Editar" -->
+
+  <!-- Modal "Excluir" -->
+  {% for viagem in viagens %}
+  <div class="modal fade" id="deleteModal{{ viagem.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ viagem.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ viagem.id }}">Exclusão de Viagem</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="{% url "trip:excluir_viagem" viagem.id %}">
+              {% csrf_token %}
+              <p>Tem certeza de que deseja excluir {{ viagem.titulo }}??</p>
+              <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End Modal "Excluir" -->
+
+  <!-- Tabela de Viagens -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Viagem</th>
+        <th>Categoria</th>
+        <th>Vagas Disponíveis</th>
+        <th>Status</th>
+        <th>Data da Criação</th>
+        <th>Última alteração</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for viagem in viagens %}
+      <tr>
+        <td>{{ viagem.titulo }}</td>
+        <td>{{ viagem.categoria }}</td>
+        <td>{{ viagem.vagas_disponiveis }}</td>
+        <td>
+          {% if viagem.is_active %}
+            <i class="fa-solid fa-circle-check text-success"></i>
+          {% else %}
+            <i class="fa-solid fa-circle-xmark text-danger"></i>
+          {% endif %}
+        </td>
+        <td>{{ viagem.created_at|date:"d/m/Y H:i:s" }}</td>
+        <td>{{ viagem.updated_at|date:"d/m/Y H:i:s"}}</td>
+        <td>
+          <!-- Button to trigger modal -->
+          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ viagem.id }}">
+            Editar
+          </button>
+          <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ viagem.id }}">
+            Excluir
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Tabela de Viagens -->
+</div>
+
+{% endblock content %}

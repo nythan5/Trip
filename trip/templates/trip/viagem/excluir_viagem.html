@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h2>Excluir Viagem</h2>
+<p>Você tem certeza que deseja excluir a  "{{ viagem.titulo }}"?</p>
+
+<form method="post" action="">
+  {% csrf_token %}
+  <button type="submit">Confirmar Exclusão</button>
+</form>
+
+<a href="{% url 'trip:listar_viagens' %}">Cancelar</a>
+
+{% endblock content %}

@@ -69,6 +69,8 @@
       <tr>
         <th>Categoria</th>
         <th>Status</th>
+        <th>Data da Criação</th>
+        <th>Última alteração</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -83,6 +85,8 @@
             <i class="fa-solid fa-circle-xmark text-danger"></i>
           {% endif %}
         </td>
+        <td>{{ categoria.created_at|date:"d/m/Y H:i:s" }}</td>
+        <td>{{ categoria.updated_at|date:"d/m/Y H:i:s"}}</td>
         <td>
           <!-- Button to trigger modal -->
           <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ categoria.id }}">
