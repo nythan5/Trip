@@ -3,8 +3,68 @@
 {% block content %}
 
 <div class="main-content" id="mainContent">
-  <h2>Listar Categorias</h2>  
-  <table class="table">
+  <div class="d-flex align-items-center">
+    <h2 class="me-2">Categorias</h2>  
+    <a  href="{% url "trip:criar_categoria" %}">
+      <button class="btn btn-sm btn-primary">Cadastrar</button>
+    </a>
+  </div>
+
+  <!-- Modal "Editar" -->
+  {% for categoria in categorias %}
+  <div class="modal fade" id="editModal{{ categoria.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ categoria.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ categoria.id }}">Editar Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="{% url 'trip:atualizar_categoria' categoria.id %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                  <label for="titulo" class="form-label">Título da Categoria</label>
+                  <input type="text" class="form-control" id="titulo" name="titulo" value="{{ categoria.titulo }}">
+              </div>
+              <div class="mb-3 form-check form-switch">
+                  <label class="form-check-label" for="is_active">Ativo</label>
+                  <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if categoria.is_active %}checked{% endif %}>
+              </div>
+              <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End Modal "Editar" -->
+
+  <!-- Modal "Excluir" -->
+  {% for categoria in categorias %}
+  <div class="modal fade" id="deleteModal{{ categoria.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ categoria.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ categoria.id }}">Exclusão de Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="{% url "trip:excluir_categoria" categoria.id %}">
+              {% csrf_token %}
+              <p>Tem certeza de que deseja excluir {{ categoria.titulo }}??</p>
+              <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End Modal "Excluir" -->
+
+  <!-- Tabela de Categorias -->
+  <table class="table mt-4">
     <thead>
       <tr>
         <th>Categoria</th>
@@ -14,24 +74,29 @@
     </thead>
     <tbody>
       {% for categoria in categorias %}
-        <tr>
-          <td>{{ categoria.titulo }}</td>
-          <td>{{ categoria.is_active }}</td>
-          <td>
-
-            <a href="{% url "trip:atualizar_categoria" categoria.id %}">
-              <button class="btn btn-sm btn-primary">Editar</button>
-            </a>
-            
-            <a href="{% url "trip:excluir_categoria" categoria.id %}">
-              <button class="btn btn-sm btn-danger">Excluir</button>
-            </a>
-
-          </td>
-        </tr>
+      <tr>
+        <td>{{ categoria.titulo }}</td>
+        <td>
+          {% if categoria.is_active %}
+            <i class="fa-solid fa-circle-check text-success"></i>
+          {% else %}
+            <i class="fa-solid fa-circle-xmark text-danger"></i>
+          {% endif %}
+        </td>
+        <td>
+          <!-- Button to trigger modal -->
+          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ categoria.id }}">
+            Editar
+          </button>
+          <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ categoria.id }}">
+            Excluir
+          </button>
+        </td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
+  <!-- End Tabela de Categorias -->
 </div>
 
 {% endblock content %}
