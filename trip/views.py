@@ -3,6 +3,7 @@ from django.views import View
 from .models import Viagem, Categoria
 from .forms.categoria_form import CategoriaForm
 from .forms.viagem_form import ViagemForm
+from django.contrib import messages
 
 
 def criar_categoria(request):
@@ -10,6 +11,7 @@ def criar_categoria(request):
         form = CategoriaForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Categoria cadastrada com sucesso!")
             return redirect('trip:listar_categorias')
     else:
         form = CategoriaForm()
@@ -28,6 +30,7 @@ def excluir_categoria(request, categoria_id):
 
     if request.method == "POST":
         categoria.delete()
+        messages.success(request, 'Categoria deletada com sucesso.')
         return redirect('trip:listar_categorias')
 
     return render(request, 'trip/categoria/excluir_categoria.html',
@@ -41,6 +44,7 @@ def atualizar_categoria(request, categoria_id):
         form = CategoriaForm(request.POST, instance=categoria)
         if form.is_valid:
             form.save()
+            messages.success(request, 'Categoria atualizada com sucesso.')
             return redirect('trip:listar_categorias')
 
     else:
