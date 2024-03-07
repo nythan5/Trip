@@ -55,6 +55,7 @@ def atualizar_categoria(request, categoria_id):
 
 
 def criar_viagem(request):
+
     if request.method == "POST":
         post_data = request.POST.copy()
         post_data['custo'] = post_data['custo'].replace(',', '.')
@@ -66,7 +67,7 @@ def criar_viagem(request):
             return redirect('trip:listar_viagens')
     else:
         form = ViagemForm()
-    return render(request, 'trip/viagem/criar_viagem.html', {'form': form})
+    return render(request, 'trip/viagem/criar_viagem.html', {'form': form, })
 
 
 def listar_viagens(request):
@@ -77,21 +78,21 @@ def listar_viagens(request):
 
 def atualizar_viagem(request, viagem_id):
     viagem = get_object_or_404(Viagem, id=viagem_id)
+    categorias = Categoria.objects.all().order_by('-id')
 
     if request.method == "POST":
-        request.POST = request.POST.copy()
-        request.POST['custo'] = request.POST['custo'].replace(',', '.')
-        request.POST['preco'] = request.POST['preco'].replace(',', '.')
-        form = ViagemForm(request.POST, instance=viagem)
-        if form.is_valid:
+        post_data = request.POST.copy()
+        post_data['custo'] = post_data['custo'].replace(',', '.')
+        post_data['preco'] = post_data['preco'].replace(',', '.')
+        form = ViagemForm(post_data, instance=viagem)
+        if form.is_valid():
             form.save()
             return redirect('trip:listar_viagens')
-
     else:
         form = ViagemForm(instance=viagem)
 
     return render(request, 'trip/viagem/atualizar_viagem.html',
-                  {'form': form, 'viagem': viagem})
+                  {'form': form, 'viagem': viagem, 'categorias': categorias})
 
 
 def excluir_viagem(request, viagem_id):
