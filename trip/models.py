@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -13,6 +15,13 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+@receiver(post_save, sender=Categoria)
+def atualizar_viagens_com_categoria(sender, instance, **kwargs):
+    if not instance.is_active:
+        # Se a categoria foi desativada, atualizar todas as viagens associadas para None
+        Viagem.objects.filter(categoria=instance).update(categoria=None)
 
 
 class Viagem(models.Model):
