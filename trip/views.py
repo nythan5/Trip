@@ -72,13 +72,13 @@ def criar_viagem(request):
 
 def listar_viagens(request):
     viagens = Viagem.objects.all().order_by('-id')
+    categorias = Categoria.objects.all().order_by('-id')
     return render(request, 'trip/viagem/listar_viagens.html',
-                  {'viagens': viagens})
+                  {'viagens': viagens, 'categorias': categorias})
 
 
 def atualizar_viagem(request, viagem_id):
     viagem = get_object_or_404(Viagem, id=viagem_id)
-    categorias = Categoria.objects.all().order_by('-id')
 
     if request.method == "POST":
         post_data = request.POST.copy()

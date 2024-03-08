@@ -32,6 +32,15 @@
                   <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if viagem.is_active %}checked{% endif %}>
               </div>
               <div class="mb-3">
+                <label for="categoria" class="form-label">Categoria</label>
+                <select class="form-select" id="categoria" name="categoria">
+                    <option value="">Selecione uma categoria</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if viagem.categoria.id == categoria.id %}selected{% endif %}>{{ categoria.titulo }}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
                 <input type="text" class="form-control" id="descricao" name="descricao" value="{{ viagem.descricao }}">
               </div>
@@ -95,6 +104,7 @@
         <th>Viagem</th>
         <th>Categoria</th>
         <th>Vagas Disponíveis</th>
+        <th>Preço</th>
         <th>Status</th>
         <th>Data da Criação</th>
         <th>Última alteração</th>
@@ -107,6 +117,7 @@
         <td>{{ viagem.titulo }}</td>
         <td>{{ viagem.categoria }}</td>
         <td>{{ viagem.vagas_disponiveis }}</td>
+        <td>{{ viagem.preco }}</td>
         <td>
           {% if viagem.is_active %}
             <i class="fa-solid fa-circle-check text-success"></i>
