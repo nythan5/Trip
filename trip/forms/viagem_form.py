@@ -6,7 +6,10 @@ from django.forms.widgets import NumberInput
 
 class ViagemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(ViagemForm, self).__init__(*args, **kwargs)
+        self.fields['categoria'].queryset = models.Categoria.objects.filter(
+            is_active=True).order_by('-id')
+
         add_placeholder(self.fields['titulo'],
                         'Digite um titulo para a viagem')
         add_placeholder(self.fields['descricao'],

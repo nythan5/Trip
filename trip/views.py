@@ -62,8 +62,10 @@ def criar_viagem(request):
         post_data['preco'] = post_data['preco'].replace(',', '.')
 
         form = ViagemForm(post_data)
+
         if form.is_valid():
             form.save()
+            messages.success(request, "Viagem cadastrada com sucesso!")
             return redirect('trip:listar_viagens')
     else:
         form = ViagemForm()
@@ -72,7 +74,7 @@ def criar_viagem(request):
 
 def listar_viagens(request):
     viagens = Viagem.objects.all().order_by('-id')
-    categorias = Categoria.objects.all().order_by('-id')
+    categorias = Categoria.objects.filter(is_active=True).order_by('-id')
     return render(request, 'trip/viagem/listar_viagens.html',
                   {'viagens': viagens, 'categorias': categorias})
 
@@ -87,12 +89,13 @@ def atualizar_viagem(request, viagem_id):
         form = ViagemForm(post_data, instance=viagem)
         if form.is_valid():
             form.save()
+            messages.success(request, "Viagem atualizada com sucesso!")
             return redirect('trip:listar_viagens')
     else:
         form = ViagemForm(instance=viagem)
 
     return render(request, 'trip/viagem/atualizar_viagem.html',
-                  {'form': form, 'viagem': viagem, 'categorias': categorias})
+                  {'form': form, 'viagem': viagem, })
 
 
 def excluir_viagem(request, viagem_id):
@@ -100,6 +103,7 @@ def excluir_viagem(request, viagem_id):
 
     if request.method == "POST":
         viagem.delete()
+        messages.success(request, "Viagem deletada com sucesso!")
         return redirect('trip:listar_viagens')
 
     return render(request, 'trip/viagem/excluir_viagem.html',
