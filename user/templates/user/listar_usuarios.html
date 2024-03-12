@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li
+        {% if message.tags %} 
+          class="{{ message.tags }}"
+        {% endif %}>
+        {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<div class="main-content" id="mainContent">
+  <div class="d-flex align-items-center">
+    <h2 class="me-2">Usuários</h2>
+    <a href="{% url 'user:criar_usuario' %}">
+      <button class="btn btn-sm btn-primary">Cadastrar</button>
+    </a>
+  </div>
+
+  <!-- Tabela de Usuários -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Nome de Usuário</th>
+        <th>Email</th>
+        <th>Permissões</th>
+        <th>Status</th>
+        <th>Data de Registro</th>
+        <th>Último Login</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+        <tr>
+          <td>{{ usuario.username }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>
+            {% if usuario.groups.all %}
+                {% for group in usuario.groups.all %}
+                    {{ group.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            {% else %}
+                Sem grupo
+            {% endif %}
+        </td>
+          <td>
+            {% if usuario.is_active %}
+              <i class="fa-solid fa-circle-check text-success"></i>
+            {% else %}
+              <i class="fa-solid fa-circle-xmark text-danger"></i>
+            {% endif %}
+          </td>
+          <td>{{ usuario.date_joined|date:"d/m/Y H:i:s" }}</td>
+          <td>{{ usuario.last_login|date:"d/m/Y H:i:s" }}</td>
+          <td>
+            <a href="" class="btn btn-sm btn-primary">Editar</a>
+            <a href="" class="btn btn-sm btn-danger">Excluir</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Tabela de Usuários -->
+</div>
+
+{% endblock content %}
