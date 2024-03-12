@@ -36,6 +36,22 @@
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" name="username" value="{{ usuario.username }}">
               </div>
+              <div class="mb-3">
+                <label for="first_name" class="form-label">Primeiro Nome</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ usuario.first_name }}">
+              </div>
+              <div class="mb-3">
+                <label for="last_name" class="form-label">Último Nome</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ usuario.last_name }}">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ usuario.email }}">
+              </div>
+              <div class="mb-3 form-check form-switch">
+                <label class="form-check-label" for="is_active">Ativo</label>
+                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if usuario.is_active %}checked{% endif %}>
+              </div>
               <button type="submit" class="btn btn-primary">Salvar Alterações</button>
           </form>
         </div>
@@ -73,7 +89,7 @@
     <thead>
       <tr>
         <th>Nome de Usuário</th>
-        <th>Email</th>
+        <th>Primeiro Nome</th>
         <th>Permissões</th>
         <th>Status</th>
         <th>Data de Registro</th>
@@ -85,7 +101,7 @@
       {% for usuario in usuarios %}
         <tr>
           <td>{{ usuario.username }}</td>
-          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.first_name }}</td>
           <td>
             {% if usuario.groups.all %}
                 {% for group in usuario.groups.all %}

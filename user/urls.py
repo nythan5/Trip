@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import criar_usuario, listar_usuarios, excluir_usuario, editar_usuario
+from django.contrib.auth import views as auth_views
 
 app_name = 'user'
 

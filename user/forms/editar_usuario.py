@@ -10,8 +10,7 @@ class EditUserForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email')
-
+        fields = ('username', 'email', 'first_name', 'last_name', 'is_active')
     # Widgets para personalizar a aparência dos campos
     widgets = {
         'username': forms.TextInput(attrs={'class': 'form-control'}),
