@@ -5,12 +5,7 @@
 {% if messages %}
   <ul class="messages">
     {% for message in messages %}
-      <li
-        {% if message.tags %} 
-          class="{{ message.tags }}"
-        {% endif %}>
-        {{ message }}
-      </li>
+      <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -22,6 +17,56 @@
       <button class="btn btn-sm btn-primary">Cadastrar</button>
     </a>
   </div>
+
+  <!-- Modal "Editar" -->
+  {% for usuario in usuarios %}
+  <div class="modal fade" id="editModal{{ usuario.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ usuario.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ usuario.id }}">Editar Usuário</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="{% url 'user:editar_usuario' user_id=usuario.id %}">
+              {% csrf_token %}
+              <!-- Adicione campos de edição aqui -->
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ usuario.username }}">
+              </div>
+              <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End Modal "Editar" -->
+
+  <!-- Modal "Excluir" -->
+  {% for usuario in usuarios %}
+  <div class="modal fade" id="deleteModal{{ usuario.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ usuario.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ usuario.id }}">Exclusão de Usuário</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="{% url 'user:excluir_usuario' user_id=usuario.id %}">
+              {% csrf_token %}
+              <p>Tem certeza de que deseja excluir {{ usuario.username }}??</p>
+              <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End Modal "Excluir" -->
 
   <!-- Tabela de Usuários -->
   <table class="table mt-4">
@@ -49,7 +94,7 @@
             {% else %}
                 Sem grupo
             {% endif %}
-        </td>
+          </td>
           <td>
             {% if usuario.is_active %}
               <i class="fa-solid fa-circle-check text-success"></i>
@@ -60,8 +105,12 @@
           <td>{{ usuario.date_joined|date:"d/m/Y H:i:s" }}</td>
           <td>{{ usuario.last_login|date:"d/m/Y H:i:s" }}</td>
           <td>
-            <a href="" class="btn btn-sm btn-primary">Editar</a>
-            <a href="" class="btn btn-sm btn-danger">Excluir</a>
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ usuario.id }}">
+              Editar
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ usuario.id }}">
+              Excluir
+            </button>
           </td>
         </tr>
       {% endfor %}

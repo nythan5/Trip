@@ -33,7 +33,7 @@ def excluir_categoria(request, categoria_id):
         messages.success(request, 'Categoria deletada com sucesso.')
         return redirect('trip:listar_categorias')
 
-    return render(request, 'trip/categoria/excluir_categoria.html',
+    return render(request, 'trip/categoria/listar_categorias.html',
                   {'categoria': categoria})
 
 
@@ -50,7 +50,7 @@ def atualizar_categoria(request, categoria_id):
     else:
         form = CategoriaForm(instance=categoria)
 
-    return render(request, 'trip/categoria/atualizar_categoria.html',
+    return render(request, 'trip/categoria/listar_categorias.html',
                   {'form': form, 'categoria': categoria})
 
 

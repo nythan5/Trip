@@ -16,14 +16,14 @@
   </ul>
 {% endif %}
 
-<h2>Excluir Categoria</h2>
-<p>Você tem certeza que deseja excluir a categoria "{{ categoria.titulo }}"?</p>
+<h2>Exclusão de Usuario</h2>
+<p>Você tem certeza que deseja excluir o usuario "{{ usuario.username }}"?</p>
 
 <form method="post" action="">
   {% csrf_token %}
   <button type="submit">Confirmar Exclusão</button>
 </form>
 
-<a href="{% url 'trip:listar_categorias' %}">Cancelar</a>
+<a href="{% url 'user:listar_usuarios' %}">Cancelar</a>
 
 {% endblock content %}
