@@ -2,20 +2,6 @@
 
 {% block content %}
 
-
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li
-        {% if message.tags %} 
-          class="{{ message.tags }}"
-        {% endif %}>
-        {{ message }}
-      </li>
-    {% endfor %}
-  </ul>
-{% endif %}
-
 <div class="main-content" id="mainContent">
   <div class="d-flex align-items-center">
     <h2 class="me-2">Viagens</h2>  

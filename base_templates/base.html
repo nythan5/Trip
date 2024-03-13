@@ -3,14 +3,19 @@
     
 <head>
     {% include "partials/head.html" %}
+    {% include "partials/messages.html" %}
 </head>
 
 <body>
+    
     <div class="d-flex">
         <div>
+            
             {% include "partials/sidebar.html" %}
             {% comment %} <button onclick="toggleSidebar()">Toggle Sidebar</button> {% endcomment %}
         </div>
+
+        
         
         <div class="container ml-2 pt-4">
             {% block content %}{% endblock content %}

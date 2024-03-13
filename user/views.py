@@ -39,7 +39,7 @@ def excluir_usuario(request, user_id):
         messages.success(request, 'Usuário deletado com sucesso.')
         return redirect('user:listar_usuarios')
 
-    return render(request, "user/excluir_usuario.html", context={'usuario': usuario})  # noqa
+    return render(request, "user/listar_usuarios.html", context={'usuario': usuario})  # noqa
 
 
 def editar_usuario(request, user_id):
@@ -55,7 +55,7 @@ def editar_usuario(request, user_id):
     else:
         form = EditUserForm(instance=usuario)
 
-    return render(request, 'user/editar_usuario.html', {'form': form, 'usuario': usuario})  # noqa
+    return render(request, 'user/listar_usuarios.html', {'form': form, 'usuario': usuario})  # noqa
 
 
 def cadastrar_cliente(request):

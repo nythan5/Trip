@@ -94,7 +94,7 @@ def atualizar_viagem(request, viagem_id):
     else:
         form = ViagemForm(instance=viagem)
 
-    return render(request, 'trip/viagem/atualizar_viagem.html',
+    return render(request, 'trip/viagem/listar_viagens.html',
                   {'form': form, 'viagem': viagem, })
 
 
@@ -106,5 +106,5 @@ def excluir_viagem(request, viagem_id):
         messages.success(request, "Viagem deletada com sucesso!")
         return redirect('trip:listar_viagens')
 
-    return render(request, 'trip/viagem/excluir_viagem.html',
+    return render(request, 'trip/viagem/listar_viagens.html',
                   {'viagem': viagem})
