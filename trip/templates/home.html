@@ -1,0 +1,25 @@
+{% extends "base_nosidebar.html" %}
+
+{% block content %}
+  <div class="viagens-disponiveis">
+    <h1>Bem-vindo à Agência de Viagens</h1>
+    <p>Explore nossas incríveis viagens e reserve a sua hoje!</p>
+
+    <h2>Viagens Disponíveis Agora</h2>
+    <div class="row">
+      {% for viagem in viagens_disponiveis %}
+        <div class="col-md-4">
+          <div class="card">
+            {% comment "" %}<img src="" alt="{{ viagem.titulo }}">{% endcomment %}
+            <div class="container">
+              <h4><b>{{ viagem.titulo }}</b></h4>
+              <p>{{ viagem.descricao }}</p>
+              <p>Preço: R$ {{ viagem.preco }}</p>
+              <!-- Adicione mais detalhes da viagem conforme necessário -->
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

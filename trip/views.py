@@ -108,3 +108,11 @@ def excluir_viagem(request, viagem_id):
 
     return render(request, 'trip/viagem/listar_viagens.html',
                   {'viagem': viagem})
+
+
+def listar_viagens_disponiveis(request):
+    # Filtra as viagens que estão ativas e têm vagas disponíveis
+    viagens_disponiveis = Viagem.objects.filter(
+        is_active=True, vagas_disponiveis__gt=0)
+
+    return render(request, 'home.html', {'viagens_disponiveis': viagens_disponiveis})

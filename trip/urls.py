@@ -5,6 +5,8 @@ from .views import *
 app_name = 'trip'
 
 urlpatterns = [
+    path('', listar_viagens_disponiveis,
+         name='home'),
     path('criar_categoria/', criar_categoria, name='criar_categoria'),
     path('listar_categorias/', listar_categorias, name='listar_categorias'),
     path('excluir_categoria/<int:categoria_id>',
