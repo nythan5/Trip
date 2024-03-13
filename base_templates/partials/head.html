@@ -31,7 +31,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 
-    <!-- Inclua o script de inicialização do bootstrap-datepicker -->
+    <!-- Inclua a biblioteca inputmask via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+    <!-- Inclua o script de inicialização das máscaras -->
     <script>
         // Inicialize o datepicker para os campos desejados
         $(document).ready(function () {
@@ -39,11 +42,11 @@
                 format: 'dd/mm/yyyy',  // Defina o formato desejado
                 autoclose: true
             });
+
+            // Aplicar máscaras
+            $('#id_rg').inputmask('99.999.999-99');
+            $('#id_cpf').inputmask('999.999.999-99');
+            $('#id_telefone').inputmask('(99) 99999-9999'); 
         });
     </script>
-
-    <!-- Inclua a biblioteca inputmask via CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
-
-
 </head>

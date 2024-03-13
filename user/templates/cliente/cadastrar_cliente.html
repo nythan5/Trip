@@ -10,11 +10,11 @@
   </ul>
 {% endif %}
 
-  <h2>Criar Usuário</h2>
+  <h2>Criar Cliente</h2>
   {% if mensagem %}
     <p>{{ mensagem }}</p>
   {% endif %}
-  <form method="post" action="{% url 'user:criar_usuario' %}">
+  <form method="post" action="{% url 'user:cadastrar_cliente' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Criar Usuário</button>

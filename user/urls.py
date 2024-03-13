@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import criar_usuario, listar_usuarios, excluir_usuario, editar_usuario
+from .views import *
 from django.contrib.auth import views as auth_views
 
 app_name = 'user'
@@ -12,5 +12,7 @@ urlpatterns = [
          excluir_usuario, name='excluir_usuario'),
     path('editar_usuario/<int:user_id>/',
          editar_usuario, name='editar_usuario'),
+
+    path('cadastrar_cliente/', cadastrar_cliente, name='cadastrar_cliente'),
 
 ]
