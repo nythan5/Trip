@@ -18,6 +18,8 @@
                 <span class="fs-5"><b>{{ viagem.titulo }}</b></span>
                 <span class='price fs-6'>R$ {{ viagem.preco }}</span>
               </div>
+              <p>Check-In: {{ viagem.check_in_data|date:'d/M/Y' }}</p>
+              <p>Check-Out: {{ viagem.check_out_data|date:'d/M/Y' }}</p>
               <p>{{ viagem.descricao }}</p>
               <button class="btn btn-primary btn-md mb-3 float-end" onclick="window.location.href='{% url 'user:vincular_viagem' viagem.id %}'">Cadastrar</button>
             </div>

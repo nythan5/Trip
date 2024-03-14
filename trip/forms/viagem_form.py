@@ -1,7 +1,6 @@
 from django import forms
 from trip import models
 from utils.placeholder_forms import add_placeholder
-from django.forms.widgets import NumberInput
 
 
 class ViagemForm(forms.ModelForm):
