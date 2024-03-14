@@ -2,14 +2,13 @@
 
 {% block content %}
 
-
 <div class="main-content" id="mainContent">
   <div class="d-flex align-items-center">
     <h2 class="me-2">Categorias</h2>  
     <a  href="{% url "trip:criar_categoria" %}">
       <button class="btn btn-sm btn-primary">Cadastrar</button>
     </a>
-</div>
+  </div>
 
   <!-- Modal "Editar" -->
   {% for categoria in categorias %}
@@ -65,42 +64,44 @@
   <!-- End Modal "Excluir" -->
 
   <!-- Tabela de Categorias -->
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th>Categoria</th>
-        <th>Status</th>
-        <th>Data da Criação</th>
-        <th>Última alteração</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for categoria in categorias %}
-      <tr>
-        <td>{{ categoria.titulo }}</td>
-        <td>
-          {% if categoria.is_active %}
-            <i class="fa-solid fa-circle-check text-success"></i>
-          {% else %}
-            <i class="fa-solid fa-circle-xmark text-danger"></i>
-          {% endif %}
-        </td>
-        <td>{{ categoria.created_at|date:"d/m/Y H:i:s" }}</td>
-        <td>{{ categoria.updated_at|date:"d/m/Y H:i:s"}}</td>
-        <td>
-          <!-- Button to trigger modal -->
-          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ categoria.id }}">
-            Editar
-          </button>
-          <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ categoria.id }}">
-            Excluir
-          </button>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="table-container mt-3 h-100">
+    <table class="table table-striped text-center" style="margin-bottom: 0;">
+      <thead class="table-dark" >
+        <tr>
+          <th>Categoria</th>
+          <th>Status</th>
+          <th>Data da Criação</th>
+          <th>Última alteração</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for categoria in categorias %}
+        <tr>
+          <td>{{ categoria.titulo }}</td>
+          <td class="">
+            {% if categoria.is_active %}
+              <i class="fa-solid fa-circle-check text-success"></i>
+            {% else %}
+              <i class="fa-solid fa-circle-xmark text-danger"></i>
+            {% endif %}
+          </td>
+          <td>{{ categoria.created_at|date:"d/m/Y H:i:s" }}</td>
+          <td>{{ categoria.updated_at|date:"d/m/Y H:i:s"}}</td>
+          <td>
+            <!-- Button to trigger modal -->
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ categoria.id }}">
+              Editar
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ categoria.id }}">
+              Excluir
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   <!-- End Tabela de Categorias -->
 </div>
 

@@ -43,6 +43,14 @@ body {
     text-decoration: none;
     color: #fff;
 }
+
+/* Tabelas de Listagem */
+.table-container {
+    /* border: 1px solid red; */
+    border-radius: 8px; /* Define o raio da borda */
+    overflow: hidden; /* Garante que a tabela não ultrapasse os limites do contêiner */
+}
+
 /* Cards de Viagens */
 .price {
     font-weight: bold;
