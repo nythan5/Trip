@@ -4,6 +4,7 @@ from .models import Viagem, Categoria
 from .forms.categoria_form import CategoriaForm
 from .forms.viagem_form import ViagemForm
 from django.contrib import messages
+from user.models import ViagensCliente
 
 
 def criar_categoria(request):
@@ -116,3 +117,16 @@ def listar_viagens_disponiveis(request):
         is_active=True, vagas_disponiveis__gt=0)
 
     return render(request, 'home.html', {'viagens_disponiveis': viagens_disponiveis})
+
+
+def listar_viagens_vinculadas(request):
+    if request.user.is_authenticated and request.user.groups.filter(name='ADM').exists():
+        viagens_clientes = ViagensCliente.objects.all()
+        return render(request, 'trip/viagem/listar_viagens_vinculadas.html', {'viagens_clientes': viagens_clientes})
+
+    if request.user.is_authenticated and request.user.groups.filter(name='Cliente').exists():
+        viagens_clientes = ViagensCliente.objects.filter(
+            cliente=request.user.cliente)
+        return render(request, 'trip/viagem/listar_viagens_vinculadas.html', {'viagens_clientes': viagens_clientes})
+    else:
+        return redirect('trip:home')

@@ -1,3 +1,5 @@
+from .models import Viagem
+from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms.criar_usuario_form import CreateUserForm
 from .forms.cliente_form import ClienteForm
@@ -6,6 +8,8 @@ from django.contrib import messages
 from .forms.editar_usuario import EditUserForm
 from django.contrib import messages
 from django.db import IntegrityError
+from .models import ViagensCliente
+from trip.models import Viagem
 # Create your views here.
 
 
@@ -76,3 +80,39 @@ def cadastrar_cliente(request):
         form = ClienteForm()
 
     return render(request, 'cliente/cadastrar_cliente.html', {'form': form})
+
+
+def vincular_viagem(request, viagem_id):
+    # Assume-se que cada usuário tem um perfil de cliente associado
+    cliente = request.user.cliente
+
+    try:
+        viagem = Viagem.objects.get(id=viagem_id)
+
+        # Verifica se o cliente já está vinculado a esta viagem
+        if ViagensCliente.objects.filter(cliente=cliente, viagem=viagem).exists():
+            messages.warning(request, 'Você já está cadastrado nesta viagem.')
+        else:
+            # Cria uma nova entrada na tabela de associação
+            ViagensCliente.objects.create(cliente=cliente, viagem=viagem)
+            messages.success(
+                request, 'Cadastro na viagem realizado com sucesso.')
+
+    except Viagem.DoesNotExist:
+        messages.error(request, 'Viagem não encontrada.')
+
+    return redirect('trip:home')
+
+
+def excluir_viagem_vinculada(request, viagem_cliente_id):
+    if request.method == 'POST':
+        # Obtém a viagem cliente a ser excluída
+        viagem_cliente = get_object_or_404(
+            ViagensCliente, id=viagem_cliente_id)
+        # Exclui a viagem cliente
+        viagem_cliente.delete()
+        # Redireciona para alguma página após a exclusão
+        return redirect('trip:listar_viagens_vinculadas')
+    else:
+        # Se o método da requisição não for POST, redireciona para a página inicial
+        return redirect('trip:listar_viagens_vinculadas')

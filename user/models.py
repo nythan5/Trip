@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from trip.models import Viagem
 
 
 class Cliente(models.Model):
@@ -19,3 +20,11 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class ViagensCliente(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    viagem = models.ForeignKey(Viagem, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.cliente.user.username} - {self.viagem.titulo}"
