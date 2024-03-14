@@ -20,5 +20,7 @@ urlpatterns = [
          atualizar_viagem, name='atualizar_viagem'),
     path('excluir_viagem/<int:viagem_id>',
          excluir_viagem, name='excluir_viagem'),
+    path('listar_viagens_vinculadas/', listar_viagens_vinculadas,
+         name='listar_viagens_vinculadas'),
 
 ]

@@ -19,7 +19,7 @@
                 <span class='price fs-6'>R$ {{ viagem.preco }}</span>
               </div>
               <p>{{ viagem.descricao }}</p>
-              <button class="btn btn-primary btn-md mb-3 float-end">Cadastrar</button>
+              <button class="btn btn-primary btn-md mb-3 float-end" onclick="window.location.href='{% url 'user:vincular_viagem' viagem.id %}'">Cadastrar</button>
             </div>
           </div>
         </div>
