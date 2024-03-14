@@ -14,8 +14,8 @@ class CategoriaForm(forms.ModelForm):
         fields = ['titulo', 'is_active',]
 
         widgets = {
-            'nome': forms.TextInput(attrs={'class': 'form-control'}),
-            'descricao': forms.Textarea(attrs={'class': 'form-control'}),
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
         labels = {

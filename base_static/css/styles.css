@@ -43,6 +43,11 @@ body {
     text-decoration: none;
     color: #fff;
 }
+/* Cards de Viagens */
+.price {
+    font-weight: bold;
+    color: green;
+}
 
 /* Main content style */
 .main-content {

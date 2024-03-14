@@ -9,15 +9,17 @@
         <div class="col-md-4">
           <div class="card">
             {% if viagem.cover %}
-                <img src="{{ viagem.cover.url }}" alt="{{ viagem.titulo }}">
+                <img class="rounded p-1" src="{{ viagem.cover.url }}" alt="{{ viagem.titulo }}">
             {% else %}
                 <p>Nenhuma imagem disponível</p>
             {% endif %}
             <div class="container">
-              <h4><b>{{ viagem.titulo }}</b></h4>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <span class="fs-5"><b>{{ viagem.titulo }}</b></span>
+                <span class='price fs-6'>R$ {{ viagem.preco }}</span>
+              </div>
               <p>{{ viagem.descricao }}</p>
-              <p>Preço: R$ {{ viagem.preco }}</p>
-              <button class="btn btn-primary btn-sm">Cadastrar</button>
+              <button class="btn btn-primary btn-md mb-3 float-end">Cadastrar</button>
             </div>
           </div>
         </div>

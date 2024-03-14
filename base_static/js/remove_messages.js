@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Adiciona um temporizador para remover as mensagens após 5 segundos
     setTimeout(function() {
-      var messages = document.querySelector('.messages');
+      let messages = document.querySelector('.messages');
       if (messages) {
         messages.parentNode.removeChild(messages);
       }

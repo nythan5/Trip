@@ -42,7 +42,7 @@ def atualizar_categoria(request, categoria_id):
 
     if request.method == "POST":
         form = CategoriaForm(request.POST, instance=categoria)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             messages.success(request, 'Categoria atualizada com sucesso.')
             return redirect('trip:listar_categorias')

@@ -1,12 +1,17 @@
 {% if messages %}
-  <ul class="messages">
+<div class="messages main-content center container messages-container">
     {% for message in messages %}
-      <li
-        {% if message.tags %} 
-          class="{{ message.tags }}"
-        {% endif %}>
-        {{ message }}
-      </li>
+        <div class="message text-center
+          {% if message.tags == 'message-success' %}
+            alert alert-success
+          {% elif message.tags == 'message-info' %}
+            alert alert-primary
+          {% else %}
+            alert alert-danger
+          {% endif %}"
+        >
+            {{ message }}
+        </div>
     {% endfor %}
-  </ul>
+</div>
 {% endif %}
