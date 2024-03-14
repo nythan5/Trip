@@ -3,11 +3,43 @@
 
 {% block content %}
 
-<h2>Nova Viagem</h2>
-<form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Cadastrar</button>
-</form>
+<div class="form-viagem-container w-75">
+    <h2 class="mb-4 text-center">Nova Viagem</h2>
+        <form class="d-flex justify-content-around" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="left-form">
+                {{form.titulo.label_tag}}
+                {{form.titulo}}
+
+                {{form.categoria.label_tag}}
+                {{form.categoria}}
+
+                {{form.descricao.label_tag}}
+                {{form.descricao}}
+
+                {{form.check_in_data.label_tag}}
+                {{form.check_in_data}}
+
+                {{form.check_out_data.label_tag}}
+                {{form.check_out_data}}
+            </div>
+
+            <div class="right-form">
+                {{form.custo.label_tag}}
+                {{form.custo}}
+
+                {{form.preco.label_tag}}
+                {{form.preco}}
+
+                {{form.vagas_disponiveis.label_tag}}
+                {{form.vagas_disponiveis}}
+
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+
+            
+        </form>
+</div>
 
 {% endblock content %}

@@ -30,15 +30,14 @@ class ViagemForm(forms.ModelForm):
                   'vagas_disponiveis', 'is_active']
 
         widgets = {
-            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
-            'descricao': forms.Textarea(attrs={'class': 'form-control'}),
-            'check_in_data': forms.TextInput(attrs={'class': 'form-control datepicker'}),
-            'check_out_data': forms.TextInput(attrs={'class': 'form-control datepicker'}),
-            'custo': forms.TextInput(attrs={'class': 'form-control money-mask'}),
-            'preco': forms.TextInput(attrs={'class': 'form-control money-mask'}),
-            'vagas_disponiveis': forms.TextInput(attrs={'class': 'form-control'}),
-
-
+            'titulo': forms.TextInput(attrs={'class': 'form-control mb-3'}),
+            'categoria': forms.Select(attrs={'class': 'form-select mb-3'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control descricao mb-3'}),
+            'check_in_data': forms.TextInput(attrs={'class': 'form-control datepicker mb-3'}),
+            'check_out_data': forms.TextInput(attrs={'class': 'form-control datepicker mb-3'}),
+            'custo': forms.TextInput(attrs={'class': 'form-control money-mask mb-3'}),
+            'preco': forms.TextInput(attrs={'class': 'form-control money-mask mb-3'}),
+            'vagas_disponiveis': forms.TextInput(attrs={'class': 'form-control mb-3'}),
         }
 
         labels = {

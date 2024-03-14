@@ -3,13 +3,17 @@
 
 {% block content %}
 
-<h2>Nova Categoria</h2>
-<form method="POST" action="">
-    {% csrf_token %}
-    <div class="mt-4 w-50">
-        {{form.as_p}}
-        <button class="btn btn-sm btn-primary" type="submit">Cadastrar</button>
-    </div>
-</form>
+<div class="categoria-form-container w-50">
+    <h2>Nova Categoria</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="mt-4 w-100">
+            {{form.as_p}}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-primary" type="submit">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 {% endblock content %}

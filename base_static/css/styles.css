@@ -51,6 +51,41 @@ body {
     overflow: hidden; /* Garante que a tabela não ultrapasse os limites do contêiner */
 }
 
+/* Formulários */
+.categoria-form-container {
+    border: 1px solid #c4c4c4;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.form-viagem-container {
+    border: 1px solid #c4c4c4;
+    border-radius: 10px;
+    padding: 15px;
+    max-height: 800px;
+    margin: auto;
+}
+
+.descricao {
+    max-height: 130px; /* Defina a altura máxima desejada */
+    /* Outros estilos opcionais */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando o conteúdo ultrapassa a altura máxima */
+}
+
+.left-form {
+    width: 45%;
+}
+
+.right-form {
+    width: 45%;
+}
+
+.input-categoria {
+    border: 1px solid red;
+    border-radius: 10px;
+}
+
 /* Cards de Viagens */
 .price {
     font-weight: bold;
