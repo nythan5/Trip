@@ -35,17 +35,6 @@ def listar_usuarios(request):
     return render(request, 'user/listar_usuarios.html', {'usuarios': usuarios})
 
 
-def excluir_usuario(request, user_id):
-    usuario = get_object_or_404(User, id=user_id)
-
-    if request.method == "POST":
-        usuario.delete()
-        messages.success(request, 'Usuário deletado com sucesso.')
-        return redirect('user:listar_usuarios')
-
-    return render(request, "user/listar_usuarios.html", context={'usuario': usuario})  # noqa
-
-
 def editar_usuario(request, user_id):
     usuario = get_object_or_404(User, id=user_id)
 
@@ -60,6 +49,17 @@ def editar_usuario(request, user_id):
         form = EditUserForm(instance=usuario)
 
     return render(request, 'user/listar_usuarios.html', {'form': form, 'usuario': usuario})  # noqa
+
+
+def excluir_usuario(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+
+    if request.method == "POST":
+        usuario.delete()
+        messages.success(request, 'Usuário deletado com sucesso.')
+        return redirect('user:listar_usuarios')
+
+    return render(request, "user/listar_usuarios.html", context={'usuario': usuario})  # noqa
 
 
 def cadastrar_cliente(request):
@@ -83,6 +83,11 @@ def cadastrar_cliente(request):
 
 
 def vincular_viagem(request, viagem_id):
+
+    if not request.user.is_authenticated:
+        messages.info(request, 'Você precisa estar logado para se cadastrar.')
+        return redirect('trip:home')
+
     # Assume-se que cada usuário tem um perfil de cliente associado
     cliente = request.user.cliente
 
