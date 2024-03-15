@@ -17,7 +17,7 @@
     <tbody>
       {% for viagens_cliente in viagens_clientes %}
         <tr>
-          <td>{{ viagens_cliente.cliente.user.username }}</td>
+          <td>{{ viagens_cliente.cliente.user.first_name }} {{ viagens_cliente.cliente.user.last_name }}</td>
           <td>{{ viagens_cliente.viagem.titulo }}</td>
           <td>
             <!-- Botão de Exclusão -->
