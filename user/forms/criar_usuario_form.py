@@ -10,30 +10,24 @@ class CreateUserForm(UserCreationForm):
         fields = [
             'username', 'email', 'first_name',
             'last_name', 'password1', 'password2'
-            ]
+        ]
 
-    # Widgets para personalizar a aparência dos campos
-    widgets = {
-        'username': forms.TextInput(attrs={'class': 'form-control'}),
-        'email': forms.EmailInput(attrs={'class': 'form-control'}),
-        'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-        'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-        'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-        'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
-    }
+        # Widgets para personalizar a aparência dos campos
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
+        }
 
-    # Labels personalizados
-    labels = {
-        'username': 'Nome de Usuário',
-        'email': 'Endereço de Email',
-        'first_name': 'Primeiro Nome',
-        'last_name': 'Último Nome',
-        'password1': 'Senha',
-        'password2': 'Confirmação de Senha',
-    }
-
-    # Texto de ajuda personalizado
-    help_texts = {
-        'password1': 'Use uma senha forte e segura.',
-        'password2': 'Repita a senha para confirmação.',
-    }
+        # Labels personalizados
+        labels = {
+            'username': 'Nome de Usuário',
+            'email': 'Endereço de Email',
+            'first_name': 'Primeiro Nome',
+            'last_name': 'Último Nome',
+            'password1': 'Senha',
+            'password2': 'Confirmação de Senha',
+        }

@@ -19,11 +19,14 @@ def criar_usuario(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(
+                    request, 'Usuário criado com sucesso.')
                 # Substitua 'página_de_sucesso' pela URL desejada
                 return redirect('user:listar_usuarios')
             except IntegrityError:
-                messages.error(
-                    request, 'Já existe um usuário com este username.')
+                messages.error(request, 'Usuário já existe.')
+                # Adicione a mensagem de erro ao formulário para que ela seja exibida no template
+                form.add_error('username', 'Usuário já existe.')
     else:
         form = CreateUserForm()
 
