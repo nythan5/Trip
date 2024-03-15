@@ -25,19 +25,6 @@ def listar_categorias(request):
     return render(request, 'trip/categoria/listar_categorias.html',
                   {'categorias': categorias})
 
-
-def excluir_categoria(request, categoria_id):
-    categoria = get_object_or_404(Categoria, id=categoria_id)
-
-    if request.method == "POST":
-        categoria.delete()
-        messages.success(request, 'Categoria deletada com sucesso.')
-        return redirect('trip:listar_categorias')
-
-    return render(request, 'trip/categoria/listar_categorias.html',
-                  {'categoria': categoria})
-
-
 def atualizar_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
 
@@ -53,6 +40,18 @@ def atualizar_categoria(request, categoria_id):
 
     return render(request, 'trip/categoria/listar_categorias.html',
                   {'form': form, 'categoria': categoria})
+
+def excluir_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+
+    if request.method == "POST":
+        categoria.delete()
+        messages.success(request, 'Categoria deletada com sucesso.')
+        return redirect('trip:listar_categorias')
+
+    return render(request, 'trip/categoria/listar_categorias.html',
+                  {'categoria': categoria})
+
 
 
 def criar_viagem(request):

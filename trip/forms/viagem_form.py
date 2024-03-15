@@ -12,15 +12,15 @@ class ViagemForm(forms.ModelForm):
         add_placeholder(self.fields['titulo'],
                         'Digite um titulo para a viagem')
         add_placeholder(self.fields['descricao'],
-                        'Digite uma descricao para a viagem')
+                        'Digite uma descrição para a viagem')
         add_placeholder(self.fields['check_in_data'],
                         'Selecione a data de Check-In')
         add_placeholder(self.fields['check_out_data'],
                         'Selecione a data de Check-Out')
         add_placeholder(self.fields['custo'],
-                        '00.00')
+                        'R$ 00,00')
         add_placeholder(self.fields['preco'],
-                        '00.00')
+                        'R$ 00,00')
 
     class Meta:
         model = models.Viagem
