@@ -2,52 +2,50 @@
 
 {% block content %}
 
-<div class="form-container w-75">
+<div class="form-container form-group w-75">
   <h2 class="mb-3 text-center">Criar Usuário</h2>
   <form class="d-flex justify-content-around" method="post" action="{% url 'user:criar_usuario' %}">
     {% csrf_token %}
     
     <div class="left-form">
-      <div class="form-group">
-        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+      
+        {{ form.username.label }}
         {{ form.username }}
         <small class="text-danger">{{ form.username.errors }}</small>
-      </div>
-
-      <div class="form-group">
-        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+      
+        {{ form.first_name.label }}
         {{ form.first_name }}
         <small class="text-danger">{{ form.first_name.errors }}</small>
-      </div>
-
-      <div class="form-group">
-        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+     
+        {{ form.last_name.label }}
         {{ form.last_name }}
         <small class="text-danger">{{ form.last_name.errors }}</small>
-      </div>
-
+      
     </div>
 
     <div class="right-form">
+
       {{ form.email.label_tag }}
       {{ form.email }}
-      <div class="form-group">
+
+      <div class="form-group">        
         <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
         <input type="password" name="{{ form.password1.name }}" class="form-control" id="{{ form.password1.id_for_label }}">
         <small class="form-text text-muted">{{ form.password1.help_text }}</small>
         <small class="text-danger">{{ form.password1.erros }}</small>
       </div>
+
       <div class="form-group">
         <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
         <input type="password" name="{{ form.password2.name }}" class="form-control" id="{{ form.password2.id_for_label }}">
         <small class="form-text text-muted">{{ form.password2.help_text }}</small>
         <small class="text-danger">{{ form.password2.erros }}</small>
-
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-sm btn-primary mt-3" type="submit">Criar Usuário</button>
-        </div>
-        
       </div>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-sm btn-primary mt-3" type="submit">Criar Usuário</button>
+      </div>   
+
     </div>
     
 
