@@ -1,6 +1,7 @@
 # flake8: noqa
 from django.urls import path
 from .views import *
+from user.views import listar_viagens_vinculadas
 
 
 app_name = 'trip'

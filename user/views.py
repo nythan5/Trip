@@ -8,7 +8,7 @@ from django.contrib import messages
 from .forms.editar_usuario import EditUserForm
 from django.contrib import messages
 from django.db import IntegrityError
-from .models import ViagensCliente
+from .models import ViagensCliente, Cliente
 from trip.models import Viagem
 # Create your views here.
 
@@ -82,6 +82,11 @@ def cadastrar_cliente(request):
     return render(request, 'cliente/cadastrar_cliente.html', {'form': form})
 
 
+def listar_clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'cliente/listar_clientes.html', {'clientes': clientes})
+
+
 def vincular_viagem(request, viagem_id):
 
     if not request.user.is_authenticated:
@@ -107,6 +112,22 @@ def vincular_viagem(request, viagem_id):
         messages.error(request, 'Viagem não encontrada.')
 
     return redirect('trip:home')
+
+
+def listar_viagens_vinculadas(request):
+    if request.user.is_authenticated and request.user.groups.filter(name='ADM').exists():
+        viagens_clientes = ViagensCliente.objects.all()
+        return render(request, 'trip/viagem/listar_viagens_vinculadas.html',
+                      {'viagens_clientes': viagens_clientes})
+
+    if request.user.is_authenticated and request.user.groups.filter(name='Cliente').exists():  # noqa
+        viagens_clientes = ViagensCliente.objects.filter(
+            cliente=request.user.cliente)
+        return render(request, 'trip/viagem/listar_viagens_vinculadas.html',
+                      {'viagens_clientes': viagens_clientes})
+    else:
+        messages.info(request, 'Você precisa estar logado.')
+        return redirect('trip:home')
 
 
 def excluir_viagem_vinculada(request, viagem_cliente_id):

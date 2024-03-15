@@ -25,6 +25,7 @@ def listar_categorias(request):
     return render(request, 'trip/categoria/listar_categorias.html',
                   {'categorias': categorias})
 
+
 def atualizar_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
 
@@ -41,6 +42,7 @@ def atualizar_categoria(request, categoria_id):
     return render(request, 'trip/categoria/listar_categorias.html',
                   {'form': form, 'categoria': categoria})
 
+
 def excluir_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
 
@@ -51,7 +53,6 @@ def excluir_categoria(request, categoria_id):
 
     return render(request, 'trip/categoria/listar_categorias.html',
                   {'categoria': categoria})
-
 
 
 def criar_viagem(request):
@@ -116,16 +117,3 @@ def listar_viagens_disponiveis(request):
         is_active=True, vagas_disponiveis__gt=0)
 
     return render(request, 'home.html', {'viagens_disponiveis': viagens_disponiveis})
-
-
-def listar_viagens_vinculadas(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='ADM').exists():
-        viagens_clientes = ViagensCliente.objects.all()
-        return render(request, 'trip/viagem/listar_viagens_vinculadas.html', {'viagens_clientes': viagens_clientes})
-
-    if request.user.is_authenticated and request.user.groups.filter(name='Cliente').exists():
-        viagens_clientes = ViagensCliente.objects.filter(
-            cliente=request.user.cliente)
-        return render(request, 'trip/viagem/listar_viagens_vinculadas.html', {'viagens_clientes': viagens_clientes})
-    else:
-        return redirect('trip:home')

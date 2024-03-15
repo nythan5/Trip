@@ -31,4 +31,5 @@ urlpatterns = [
 
     # Cliente
     path('cadastrar_cliente/', cadastrar_cliente, name='cadastrar_cliente'),
+    path('listar_clientes/', listar_clientes, name='listar_clientes'),
 ]
