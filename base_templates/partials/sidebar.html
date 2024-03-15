@@ -1,23 +1,39 @@
-<div class="sidebar pt-4"  id="sidebar">
-    <h2> 
-        <a href="{% url "trip:home" %}">Home</a>         
-    </h2>
-    <ul>        
-        <li> 
-            <a href="{% url "trip:listar_categorias" %}">Categorias</a>
-        </li>
-        <li>
-            <a href="{% url "trip:listar_viagens" %}">Viagens</a>
-        </li>
-        <li>
-            <a href="{% url "user:listar_usuarios" %}">Usuários</a>
-        </li>
-        <li>
-            <a href="{% url "user:listar_clientes" %}">Cliente</a>
-        </li>
-        <li>
-            <a href="{% url "trip:listar_viagens_vinculadas" %}">Viagens dos Clientes</a>
-        </li>
-        <!-- Adicione mais links conforme necessário -->
-    </ul>
+<div class="sidebar p-4" id="sidebar">
+    <div class="logo-container d-flex pt-2 pb-3 mb-4">
+        <h4 class="text-light"> 
+            Untitled        
+        </h4>
+    </div>
+
+    <div>
+        <a href="{% url "trip:home" %}" class="mb-4">
+            <h6 class="text-light">Home</h6>
+        </a>
+        <div class="admin mb-4">
+            <h6 class="text-light">Administrativo</h6>
+            <ul>
+                <li> 
+                    <a href="{% url "trip:listar_categorias" %}">Categorias</a>
+                </li>
+                <li>
+                    <a href="{% url "trip:listar_viagens" %}">Viagens</a>
+                </li>
+                <li>
+                    <a href="{% url "trip:listar_viagens_vinculadas" %}">Viagens dos Clientes</a>
+                </li>
+            </ul>
+        </div>
+    
+        <div class="user">
+            <h6 class="text-light">Perfil</h6>
+            <ul>
+                <li>
+                    <a href="{% url "user:listar_usuarios" %}">Usuários</a>
+                </li>
+                <li>
+                    <a href="{% url "user:listar_clientes" %}">Cliente</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

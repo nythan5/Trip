@@ -16,6 +16,11 @@ body {
     transition: left 0.3s ease;
 }
 
+.logo-container {
+    border-bottom: 1px solid white;
+    width: 100%;
+}
+
 .sidebar h2 {
     color: white;
     text-align: center;
@@ -28,7 +33,7 @@ body {
 
 .sidebar li {
     padding: 8px;
-    text-align: center;
+    text-align: left;
 }
 
 .sidebar a {
