@@ -7,33 +7,13 @@
   {% if mensagem %}
     <p>{{ mensagem }}</p>
   {% endif %}
-  <form class="d-flex justify-content-around" method="post" action="{% url 'user:criar_usuario' %}">
+  <form class="" method="post" action="{% url 'user:criar_usuario' %}">
     {% csrf_token %}
 
-    <div class="left-form">
-      {{form.username.label_tag}}
-      <input type="text" class="form-control mb-3" id="{{form.username.id_for_label}}">
+    {{form.as_p}}
 
-      {{form.email.label_tag}}
-      <input type="text" class="form-control mb-3" id="{{form.email.id_for_label}}">
-
-      {{form.first_name.label_tag}}
-      <input type="text" class="form-control mb-3" id="{{form.first_name.id_for_label}}">
-    </div>
-
-    <div class="right-form">
-      {{form.last_name.label_tag}}
-      <input type="text" class="form-control mb-3" id="{{form.last_name.id_for_label}}">
-
-      {{form.password1.label_tag}}
-      <input type="password" class="form-control mb-3" id="{{form.password1.id_for_label}}">
-
-      {{form.password2.label_tag}}
-      <input type="password" class="form-control" id="{{form.password2.id_for_label}}">
-
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-sm btn-primary mt-3" type="submit">Criar Usuário</button>
-      </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-sm btn-primary mt-3" type="submit">Criar Usuário</button>
     </div>
   </form>
 </div>
