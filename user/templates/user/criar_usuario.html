@@ -2,13 +2,39 @@
 
 {% block content %}
 
-  <h2>Criar Usuário</h2>
+<div class="form-container w-50">
+  <h2 class="mb-3 text-center">Criar Usuário</h2>
   {% if mensagem %}
     <p>{{ mensagem }}</p>
   {% endif %}
-  <form method="post" action="{% url 'user:criar_usuario' %}">
+  <form class="d-flex justify-content-around" method="post" action="{% url 'user:criar_usuario' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Criar Usuário</button>
+
+    <div class="left-form">
+      {{form.username.label_tag}}
+      <input type="text" class="form-control mb-3" id="{{form.username.id_for_label}}">
+
+      {{form.email.label_tag}}
+      <input type="text" class="form-control mb-3" id="{{form.email.id_for_label}}">
+
+      {{form.first_name.label_tag}}
+      <input type="text" class="form-control mb-3" id="{{form.first_name.id_for_label}}">
+    </div>
+
+    <div class="right-form">
+      {{form.last_name.label_tag}}
+      <input type="text" class="form-control mb-3" id="{{form.last_name.id_for_label}}">
+
+      {{form.password1.label_tag}}
+      <input type="password" class="form-control mb-3" id="{{form.password1.id_for_label}}">
+
+      {{form.password2.label_tag}}
+      <input type="password" class="form-control" id="{{form.password2.id_for_label}}">
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-sm btn-primary mt-3" type="submit">Criar Usuário</button>
+      </div>
+    </div>
   </form>
+</div>
 {% endblock %}

@@ -2,13 +2,18 @@
 
 {% block content %}
 
-  <h2>Criar Cliente</h2>
+<div class="form-container w-50">
+  <h2 class="text-center">Criar Cliente</h2>
   {% if mensagem %}
     <p>{{ mensagem }}</p>
   {% endif %}
   <form method="post" action="{% url 'user:cadastrar_cliente' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Criar Usuário</button>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-sm btn-primary" type="submit">Criar Usuário</button>
+    </div>
   </form>
+</div>
+
 {% endblock %}

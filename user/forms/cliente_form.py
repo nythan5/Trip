@@ -15,6 +15,9 @@ class ClienteForm(forms.ModelForm):
         fields = ['rg', 'cpf', 'telefone', 'data_nascimento', 'genero']
 
         widgets = {
+            'rg': forms.TextInput(attrs={'class': 'form-control'}),
+            'cpf': forms.TextInput(attrs={'class': 'form-control'}),
+            'telefone': forms.TextInput(attrs={'class': 'form-control'}),
             'data_nascimento': forms.DateInput(attrs={'class': 'form-control'}),
             'genero': forms.Select(attrs={'class': 'form-control'}),
             'data_nascimento': forms.TextInput(attrs={'class': 'form-control datepicker'}),

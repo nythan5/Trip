@@ -3,52 +3,52 @@
 
 {% block content %}
 
-<div class="form-viagem-container w-75">
+<div class="form-container w-75">
     <h2 class="mb-4 text-center">Nova Viagem</h2>
-        <form class="d-flex justify-content-around" method="POST" action="" enctype="multipart/form-data">
-            {% csrf_token %}
+    <form class="d-flex justify-content-around" method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
 
-            <div class="left-form">
-                {{form.titulo.label_tag}}
-                {{form.titulo}}
+        <div class="left-form">
+            {{form.titulo.label_tag}}
+            {{form.titulo}}
 
-                {{form.categoria.label_tag}}
-                {{form.categoria}}
+            {{form.categoria.label_tag}}
+            {{form.categoria}}
 
-                {{form.descricao.label_tag}}
-                {{form.descricao}}
+            {{form.descricao.label_tag}}
+            {{form.descricao}}
 
-                {{form.check_in_data.label_tag}}
-                {{form.check_in_data}}
+            {{form.check_in_data.label_tag}}
+            {{form.check_in_data}}
 
-                {{form.check_out_data.label_tag}}
-                {{form.check_out_data}}
-            </div>
+            {{form.check_out_data.label_tag}}
+            {{form.check_out_data}}
+        </div>
 
-            <div class="right-form">
-                {{form.custo.label_tag}}
-                {{form.custo}}
+        <div class="right-form">
+            {{form.custo.label_tag}}
+            {{form.custo}}
 
-                {{form.preco.label_tag}}
-                {{form.preco}}
+            {{form.preco.label_tag}}
+            {{form.preco}}
 
-                {{form.vagas_disponiveis.label_tag}}
-                {{form.vagas_disponiveis}}
+            {{form.vagas_disponiveis.label_tag}}
+            {{form.vagas_disponiveis}}
 
-                {{form.is_active.label_tag}}
-                {{form.is_active}}
+            {{form.is_active.label_tag}}
+            {{form.is_active}}
 
-                <br>
-                <br>
-                
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-md btn-primary" type="submit">Cadastrar</button>
-                </div>
-
-            </div>
-
+            <br>
+            <br>
             
-        </form>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-md btn-primary" type="submit">Cadastrar</button>
+            </div>
+
+        </div>
+
+        
+    </form>
 </div>
 
 {% endblock content %}
