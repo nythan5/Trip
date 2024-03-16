@@ -14,12 +14,12 @@ class CreateUserForm(UserCreationForm):
 
         # Widgets para personalizar a aparência dos campos
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control mb-3'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control mb-3'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control mb-3'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control mb-3'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control mb-3'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control mb-3'}),
         }
 
         # Labels personalizados
