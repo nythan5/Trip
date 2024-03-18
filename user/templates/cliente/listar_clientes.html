@@ -2,8 +2,6 @@
 
 {% block content %}
 
-
-
 <div class="main-content" id="mainContent">
   <div class="d-flex align-items-center">
     <h2 class="me-2">Clientes</h2>
@@ -38,7 +36,7 @@
             </td>
             <td>{{ cliente.user.date_joined|date:"d/m/Y H:i:s" }}</td>
             <td>
-              <button type="button" class="btn btn-sm btn-primary">
+              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ cliente.id }}">
                 Editar
               </button>
               <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ cliente.id }}">
@@ -46,6 +44,55 @@
               </button>
             </td>
           </tr>
+          <!-- Modal "Editar Cliente" -->
+          <div class="modal fade" id="editModal{{ cliente.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ cliente.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel{{ cliente.id }}">Editar Cliente</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="{% url 'user:editar_cliente' cliente_id=cliente.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="rg" class="form-label">RG</label>
+                      <input type="text" class="form-control" id="rg" name="rg" value="{{ cliente.rg }}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="cpf" class="form-label">CPF</label>
+                      <input type="text" class="form-control" id="cpf" name="cpf" value="{{ cliente.cpf }}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="telefone" class="form-label">Telefone</label>
+                      <input type="text" class="form-control" id="telefone" name="telefone" value="{{ cliente.telefone }}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                      {% with cliente.data_nascimento|date:"Y-m-d" as formatted_date %}
+                          <input type="date" class="form-control datepicker" id="data_nascimento" name="data_nascimento" value="{{ formatted_date }}">
+                      {% endwith %}
+                    </div>
+                    <div class="mb-3">
+                      <label for="genero" class="form-label">Gênero</label>
+                      <select class="form-select" id="genero" name="genero">
+                        <option value="">Selecione o gênero</option>
+                        <option value="M" {% if cliente.genero == 'M' %}selected{% endif %}>Masculino</option>
+                        <option value="F" {% if cliente.genero == 'F' %}selected{% endif %}>Feminino</option>
+                        <option value="O" {% if cliente.genero == 'O' %}selected{% endif %}>Outro</option>
+                      </select>
+                    </div>                  
+                    <div class="modal-footer">                      
+                      <button type="submit" class="btn btn-success">Salvar</button>                      
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Modal "Editar Cliente" -->
+
           <!-- Modal "Excluir Cliente" -->
           <div class="modal fade" id="deleteModal{{ cliente.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ cliente.id }}" aria-hidden="true">
             <div class="modal-dialog">

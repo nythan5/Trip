@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View
 from .models import Viagem, Categoria
 from .forms.categoria_form import CategoriaForm
 from .forms.viagem_form import ViagemForm
 from django.contrib import messages
-from user.models import ViagensCliente
+
+
+def sidebar(request):
+    is_adm = request.user.groups.filter(name='ADM').exists()
+    is_cliente = request.user.groups.filter(name='Cliente').exists()
+    return {'is_adm': is_adm, 'is_cliente': is_cliente}
 
 
 def criar_categoria(request):
@@ -22,8 +26,7 @@ def criar_categoria(request):
 
 def listar_categorias(request):
     categorias = Categoria.objects.all().order_by('-id')
-    return render(request, 'trip/categoria/listar_categorias.html',
-                  {'categorias': categorias})
+    return render(request, 'trip/categoria/listar_categorias.html', {'categorias': categorias, **sidebar(request)})
 
 
 def atualizar_categoria(request, categoria_id):
@@ -40,7 +43,7 @@ def atualizar_categoria(request, categoria_id):
         form = CategoriaForm(instance=categoria)
 
     return render(request, 'trip/categoria/listar_categorias.html',
-                  {'form': form, 'categoria': categoria})
+                  {'form': form, 'categoria': categoria, **sidebar(request)})
 
 
 def excluir_categoria(request, categoria_id):
@@ -52,7 +55,7 @@ def excluir_categoria(request, categoria_id):
         return redirect('trip:listar_categorias')
 
     return render(request, 'trip/categoria/listar_categorias.html',
-                  {'categoria': categoria})
+                  {'categoria': categoria, **sidebar(request)})
 
 
 def criar_viagem(request):
@@ -70,14 +73,14 @@ def criar_viagem(request):
             return redirect('trip:listar_viagens')
     else:
         form = ViagemForm()
-    return render(request, 'trip/viagem/criar_viagem.html', {'form': form, })
+    return render(request, 'trip/viagem/criar_viagem.html', {'form': form, **sidebar(request)})
 
 
 def listar_viagens(request):
     viagens = Viagem.objects.all().order_by('-id')
     categorias = Categoria.objects.filter(is_active=True).order_by('-id')
     return render(request, 'trip/viagem/listar_viagens.html',
-                  {'viagens': viagens, 'categorias': categorias})
+                  {'viagens': viagens, 'categorias': categorias, ** sidebar(request)})
 
 
 def atualizar_viagem(request, viagem_id):
@@ -96,7 +99,7 @@ def atualizar_viagem(request, viagem_id):
         form = ViagemForm(instance=viagem)
 
     return render(request, 'trip/viagem/listar_viagens.html',
-                  {'form': form, 'viagem': viagem, })
+                  {'form': form, 'viagem': viagem, **sidebar(request)})
 
 
 def excluir_viagem(request, viagem_id):
@@ -108,7 +111,7 @@ def excluir_viagem(request, viagem_id):
         return redirect('trip:listar_viagens')
 
     return render(request, 'trip/viagem/listar_viagens.html',
-                  {'viagem': viagem})
+                  {'viagem': viagem, **sidebar(request)})
 
 
 def listar_viagens_disponiveis(request):

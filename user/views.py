@@ -1,15 +1,15 @@
 from .models import Viagem
-from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms.criar_usuario_form import CreateUserForm
 from .forms.cliente_form import ClienteForm
+from .forms.editar_cliente import ClienteEditForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms.editar_usuario import EditUserForm
-from django.contrib import messages
 from django.db import IntegrityError
 from .models import ViagensCliente, Cliente
-from trip.models import Viagem
+from trip.views import sidebar
+
 # Create your views here.
 
 
@@ -30,12 +30,12 @@ def criar_usuario(request):
     else:
         form = CreateUserForm()
 
-    return render(request, 'user/criar_usuario.html', {'form': form})
+    return render(request, 'user/criar_usuario.html', {'form': form, **sidebar(request)})
 
 
 def listar_usuarios(request):
     usuarios = User.objects.all()
-    return render(request, 'user/listar_usuarios.html', {'usuarios': usuarios})
+    return render(request, 'user/listar_usuarios.html', {'usuarios': usuarios, **sidebar(request)})
 
 
 def editar_usuario(request, user_id):
@@ -51,7 +51,7 @@ def editar_usuario(request, user_id):
     else:
         form = EditUserForm(instance=usuario)
 
-    return render(request, 'user/listar_usuarios.html', {'form': form, 'usuario': usuario})  # noqa
+    return render(request, 'user/listar_usuarios.html', {'form': form, 'usuario': usuario, **sidebar(request)})  # noqa
 
 
 def excluir_usuario(request, user_id):
@@ -62,7 +62,7 @@ def excluir_usuario(request, user_id):
         messages.success(request, 'Usuário deletado com sucesso.')
         return redirect('user:listar_usuarios')
 
-    return render(request, "user/listar_usuarios.html", context={'usuario': usuario})  # noqa
+    return render(request, "user/listar_usuarios.html", context={'usuario': usuario, **sidebar(request)})  # noqa
 
 
 def cadastrar_cliente(request):
@@ -82,12 +82,29 @@ def cadastrar_cliente(request):
     else:
         form = ClienteForm()
 
-    return render(request, 'cliente/cadastrar_cliente.html', {'form': form})
+    return render(request, 'cliente/cadastrar_cliente.html', {'form': form, **sidebar(request)})
 
 
 def listar_clientes(request):
     clientes = Cliente.objects.all()
-    return render(request, 'cliente/listar_clientes.html', {'clientes': clientes})  # noqa
+    return render(request, 'cliente/listar_clientes.html', {'clientes': clientes, **sidebar(request)})  # noqa
+
+
+def editar_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+
+    if request.method == 'POST':
+        form = ClienteEditForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cliente atualizado com sucesso.')
+            # Redireciona para a lista de clientes após a edição
+            return redirect('user:listar_clientes')
+    else:
+        print('form nao valido')
+        form = ClienteEditForm(instance=cliente)
+
+    return render(request, 'cliente/listar_clientes.html', {'form': form, **sidebar(request)})
 
 
 def excluir_cliente(request, cliente_id):
@@ -98,7 +115,7 @@ def excluir_cliente(request, cliente_id):
         messages.success(request, 'Cliente deletado com sucesso.')
         return redirect('user:listar_clientes')
 
-    return render(request, "cliente/listar_clientes.html", {'cliente': cliente})
+    return render(request, "cliente/listar_clientes.html", {'cliente': cliente, **sidebar(request)})
 
 
 def vincular_viagem(request, viagem_id):
@@ -130,15 +147,16 @@ def vincular_viagem(request, viagem_id):
 
 def listar_viagens_vinculadas(request):
     if request.user.is_authenticated and request.user.groups.filter(name='ADM').exists():
-        viagens_clientes = ViagensCliente.objects.all()
+        viagens_clientes = ViagensCliente.objects.filter(
+            viagem__is_active=True)
         return render(request, 'trip/viagem/listar_viagens_vinculadas.html',
-                      {'viagens_clientes': viagens_clientes})
+                      {'viagens_clientes': viagens_clientes, **sidebar(request)})
 
     if request.user.is_authenticated and request.user.groups.filter(name='Cliente').exists():  # noqa
         viagens_clientes = ViagensCliente.objects.filter(
             cliente=request.user.cliente)
         return render(request, 'trip/viagem/listar_viagens_vinculadas.html',
-                      {'viagens_clientes': viagens_clientes})
+                      {'viagens_clientes': viagens_clientes, **sidebar(request)})
     else:
         messages.info(request, 'Você precisa estar logado.')
         return redirect('trip:home')

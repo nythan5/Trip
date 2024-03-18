@@ -45,7 +45,8 @@
                 <label class="form-check-label" for="is_active">Ativo</label>
                 <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if usuario.is_active %}checked{% endif %}>
               </div>
-              <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+              <button type="submit" class="btn btn-success">Salvar Alterações</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           </form>
         </div>
       </div>
@@ -69,6 +70,7 @@
               {% csrf_token %}
               <p>Tem certeza de que deseja excluir {{ usuario.username }}??</p>
               <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           </form>
         </div>
       </div>

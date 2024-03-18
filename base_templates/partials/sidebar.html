@@ -10,24 +10,43 @@
             <h6 class="text-light">Home</h6>
         </a>
         <hr class="text-light">
+
         <div class="admin mb-4">
             <h6 class="text-light"><i class="fa-solid fa-sliders"></i> - Administrativo</h6>
             <ul>
-                <li> 
-                    <a href="{% url "trip:listar_categorias" %}"><i class="fa-regular fa-rectangle-list"></i> - Categorias</a>
-                </li>
-                <li>
-                    <a href="{% url "trip:listar_viagens" %}"><i class="fa-solid fa-cart-flatbed-suitcase"></i> - Viagens</a>
-                </li>
-                <li>
-                    <a href="{% url "trip:listar_viagens_vinculadas" %}"><i class="fa-solid fa-users-rectangle"></i> - Viagens/Clientes</a>
-                </li>
-                <li>
-                    <a href="{% url "user:listar_usuarios" %}"><i class="fa-solid fa-users"></i> - Usuários</a>
-                </li>
-                <li>
-                    <a href="{% url "user:listar_clientes" %}"><i class="fa-solid fa-handshake"></i> - Clientes</a>
-                </li>
+                {% if is_adm %}
+                    <li> 
+                        <a href="{% url "trip:listar_categorias" %}"><i class="fa-regular fa-rectangle-list"></i> - Categorias</a>
+                    </li>
+                    <li>
+                        <a href="{% url "trip:listar_viagens" %}"><i class="fa-solid fa-cart-flatbed-suitcase"></i> - Viagens</a>
+                    </li>
+                    <li>
+                        <a href="{% url "trip:listar_viagens_vinculadas" %}"><i class="fa-solid fa-users-rectangle"></i> - Viagens/Clientes</a>
+                    </li>
+                    <li>
+                        <a href="{% url "user:listar_usuarios" %}"><i class="fa-solid fa-users"></i> - Usuários</a>
+                    </li>
+                    <li>
+                        <a href="{% url "user:listar_clientes" %}"><i class="fa-solid fa-handshake"></i> - Clientes</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <hr class="text-light">
+        
+        <div class="cliente mb-4">
+            <h6 class="text-light"><i class="fa-solid fa-sliders"></i> - Área do Cliente</h6>
+            <ul>
+                {% if is_cliente %}
+                    <li> 
+                        <a href=""><i class="fa-regular fa-rectangle-list"></i> - Dados Pessoais</a>
+                    </li>
+                    
+                    <li>
+                        <a href=""><i class="fa-solid fa-handshake"></i> - Minhas Viagens</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
         <hr class="text-light">

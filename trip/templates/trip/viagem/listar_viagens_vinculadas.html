@@ -12,6 +12,7 @@
         <tr>
           <th>Cliente</th>
           <th>Viagem</th>
+          <th>Saldo</th>
           <th>Ações</th> <!-- Adicionando a coluna de Ações -->
         </tr>
       </thead>
@@ -20,6 +21,7 @@
           <tr>
             <td>{{ viagens_cliente.cliente.user.first_name }} {{ viagens_cliente.cliente.user.last_name }}</td>
             <td>{{ viagens_cliente.viagem.titulo }}</td>
+            <td>{{ viagens_cliente.viagem.preco }}</td>
             <td>
               <!-- Botão de Exclusão -->
               <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#excluirModal{{ viagens_cliente.id }}">
