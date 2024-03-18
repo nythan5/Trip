@@ -9,6 +9,8 @@ from .forms.editar_usuario import EditUserForm
 from django.db import IntegrityError
 from .models import ViagensCliente, Cliente
 from trip.views import sidebar
+from django.db.models import Sum
+
 
 # Create your views here.
 
@@ -99,7 +101,7 @@ def editar_cliente(request, cliente_id):
             form.save()
             messages.success(request, 'Cliente atualizado com sucesso.')
             # Redireciona para a lista de clientes após a edição
-            return redirect('user:listar_clientes')
+            return redirect('user:listar_viagens_vinculadas')
     else:
         print('form nao valido')
         form = ClienteEditForm(instance=cliente)
@@ -174,3 +176,14 @@ def excluir_viagem_vinculada(request, viagem_cliente_id):
     else:
         # Se o método da requisição não for POST, redireciona para a página inicial
         return redirect('trip:listar_viagens_vinculadas')
+
+
+def dashboard_geral(request):
+    usuarios_ativos = User.objects.filter(is_active=True)
+    clientes = Cliente.objects.filter(user__in=usuarios_ativos).count()
+    viagens = Viagem.objects.filter(is_active=True).count()
+
+    contexto = {'clientes': clientes, 'viagens': viagens, }
+
+    contexto.update(sidebar(request))
+    return render(request, 'user/dashboard_geral.html', contexto)

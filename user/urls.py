@@ -36,4 +36,7 @@ urlpatterns = [
          editar_cliente, name='editar_cliente'),
     path('excluir_cliente/<int:cliente_id>/',
          excluir_cliente, name='excluir_cliente'),
+
+    # Dashboard
+    path('dashboard_geral/', dashboard_geral, name='dashboard_geral'),
 ]
