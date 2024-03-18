@@ -9,7 +9,7 @@ from .forms.editar_usuario import EditUserForm
 from django.db import IntegrityError
 from .models import ViagensCliente, Cliente
 from trip.views import sidebar
-from django.db.models import Sum
+from django.contrib.auth import login, authenticate, logout
 
 
 # Create your views here.
@@ -24,7 +24,7 @@ def criar_usuario(request):
                 messages.success(
                     request, 'Usuário criado com sucesso.')
                 # Substitua 'página_de_sucesso' pela URL desejada
-                return redirect('user:listar_usuarios')
+                return redirect('user:cliente_login')
             except IntegrityError:
                 messages.error(request, 'Usuário já existe.')
                 # Adicione a mensagem de erro ao formulário para que ela seja exibida no template
@@ -187,3 +187,43 @@ def dashboard_geral(request):
 
     contexto.update(sidebar(request))
     return render(request, 'user/dashboard_geral.html', contexto)
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            # Redirecionar para a página de dashboard após o login
+            return redirect('user:dashboard_geral')
+        else:
+            messages.error(request, 'Nome de usuário ou senha inválidos.')
+
+    return render(request, 'user/login.html', {'title': 'Login'})
+
+
+def cliente_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            # Redirecionar para a página de dashboard após o login
+            return redirect('user:cadastrar_cliente')
+        else:
+            messages.error(request, 'Nome de usuário ou senha inválidos.')
+
+    return render(request, 'user/login.html', {'title': 'Login'})
+
+
+def user_logout(request):
+    logout(request)
+    messages.info(request, 'Você foi deslogado.')
+    return redirect('trip:home')

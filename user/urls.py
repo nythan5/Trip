@@ -39,4 +39,11 @@ urlpatterns = [
 
     # Dashboard
     path('dashboard_geral/', dashboard_geral, name='dashboard_geral'),
+
+    # login
+    path('login/', user_login, name='login'),
+    path('cliente_login/', cliente_login, name='cliente_login'),
+
+    # logout
+    path('logout/', user_logout, name='logout'),
 ]
