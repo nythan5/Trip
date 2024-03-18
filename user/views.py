@@ -75,7 +75,7 @@ def cadastrar_cliente(request):
                 cliente.user = request.user
                 cliente.save()
                 # alterar para home do cliente
-                return redirect('user:listar_usuarios')
+                return redirect('user:listar_clientes')
             except IntegrityError:
                 messages.error(
                     request, 'Já existe um cliente associado a este usuário.')
@@ -87,7 +87,18 @@ def cadastrar_cliente(request):
 
 def listar_clientes(request):
     clientes = Cliente.objects.all()
-    return render(request, 'cliente/listar_clientes.html', {'clientes': clientes})
+    return render(request, 'cliente/listar_clientes.html', {'clientes': clientes})  # noqa
+
+
+def excluir_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+
+    if request.method == "POST":
+        cliente.delete()
+        messages.success(request, 'Cliente deletado com sucesso.')
+        return redirect('user:listar_clientes')
+
+    return render(request, "cliente/listar_clientes.html", {'cliente': cliente})
 
 
 def vincular_viagem(request, viagem_id):

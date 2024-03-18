@@ -2,13 +2,7 @@
 
 {% block content %}
 
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+
 
 <div class="main-content" id="mainContent">
   <div class="d-flex align-items-center">
@@ -18,14 +12,13 @@
     </a>
   </div>
 
-    
-  <!-- Tabela de Usuários -->
+  <!-- Tabela de Clientes -->
   <div class="table-container mt-3">
     <table class="table  text-center" style="margin-bottom: 0;">
       <thead class="table-dark">
         <tr>
           <th>Nome de cliente</th>
-          <th>Ultimo nome</th>
+          <th>Último nome</th>
           <th>Status</th>
           <th>Data de Registro</th>
           <th>Ações</th>
@@ -48,16 +41,38 @@
               <button type="button" class="btn btn-sm btn-primary">
                 Editar
               </button>
-              <button type="button" class="btn btn-sm btn-danger">
+              <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ cliente.id }}">
                 Excluir
               </button>
             </td>
           </tr>
+          <!-- Modal "Excluir Cliente" -->
+          <div class="modal fade" id="deleteModal{{ cliente.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ cliente.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel{{ cliente.id }}">Excluir Cliente</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Tem certeza de que deseja excluir o cliente {{ cliente.user.first_name }} {{ cliente.user.last_name }}?</p>
+                </div>
+                <div class="modal-footer">
+                  <form method="POST" action="{% url 'user:excluir_cliente' cliente_id=cliente.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+                  </form>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Modal "Excluir Cliente" -->
         {% endfor %}
       </tbody>
     </table>
   </div>
-  <!-- End Tabela de Usuários -->
+  <!-- End Tabela de Clientes -->
 </div>
 
 {% endblock content %}
