@@ -10,6 +10,7 @@ from django.db import IntegrityError
 from .models import ViagensCliente, Cliente
 from trip.views import sidebar
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -20,10 +21,13 @@ def criar_usuario(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             try:
-                form.save()
-                messages.success(
-                    request, 'Usuário criado com sucesso.')
-                # Substitua 'página_de_sucesso' pela URL desejada
+                user = form.save(commit=False)
+                user.save()
+                # Supondo que o nome do grupo seja 'Clientes'
+                group = Group.objects.get(name='Clientes')
+                user.groups.add(group)
+                messages.success(request, 'Usuário criado com sucesso.')
+
                 return redirect('user:cliente_login')
             except IntegrityError:
                 messages.error(request, 'Usuário já existe.')
