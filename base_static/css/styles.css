@@ -60,6 +60,7 @@ body {
     /* border: 1px solid red; */
     border-radius: 8px; /* Define o raio da borda */
     overflow: hidden; /* Garante que a tabela não ultrapasse os limites do contêiner */
+    box-shadow: 4px 4px 6px -4px rgba(0,0,0,0.75);
 }
 
 /* Formulários */
@@ -70,7 +71,7 @@ body {
     max-height: 800px;
     margin: auto;
     background-color: rgb(255, 255, 255, 0.6);
-    box-shadow: 5px 5px 8px -4px rgba(0,0,0,0.75);
+    box-shadow: 4px 4px 6px -4px rgba(0,0,0,0.75);
 }
 
 .descricao {
