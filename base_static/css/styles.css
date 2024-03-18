@@ -8,7 +8,7 @@ body {
 }
 
 .page-background {
-    background-color: #fff3e8;
+    background-color: #e8f6ff;
 }
 
 /* Sidebar style */
@@ -64,12 +64,13 @@ body {
 
 /* Formulários */
 .form-container {
-    border: 1px solid #c4c4c4;
+    border: 1px solid #bfe6ff;
     border-radius: 10px;
     padding: 15px;
     max-height: 800px;
     margin: auto;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255, 255, 255, 0.6);
+    box-shadow: 5px 5px 8px -4px rgba(0,0,0,0.75);
 }
 
 .descricao {
