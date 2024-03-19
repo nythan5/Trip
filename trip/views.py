@@ -1,8 +1,10 @@
+from django.shortcuts import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Viagem, Categoria
 from .forms.categoria_form import CategoriaForm
 from .forms.viagem_form import ViagemForm
 from django.contrib import messages
+import requests
 
 
 def sidebar(request):
@@ -120,3 +122,61 @@ def listar_viagens_disponiveis(request):
         is_active=True, vagas_disponiveis__gt=0)
 
     return render(request, 'home.html', {'viagens_disponiveis': viagens_disponiveis})
+
+
+def pagamento(request):
+    # Dados necessários para criar o checkout
+    dados_checkout = {
+        "reference_id": "REF123",
+        "items": [
+            {
+                "name": "Item de Teste2",
+                "description": "Descrição do Item",
+                "unit_amount": 50000,
+                "quantity": 1
+            }
+        ],
+        "sender": {
+            "name": "Cliente Teste",
+            "email": "cliente@teste.com"
+        }
+    }
+
+    # URL da API do PagSeguro para criar um checkout
+    url_api_pagseguro = 'https://sandbox.api.pagseguro.com/checkouts'
+
+    # Autenticação na API do PagSeguro (substitua pelo seu email e token)
+    token = '330222910B9B478094716615805DB373'
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {token}'
+
+    }
+
+    # Fazendo a requisição POST para criar o checkout
+    response = requests.post(
+        url_api_pagseguro, json=dados_checkout, headers=headers)
+
+    # Verifica se a requisição foi bem sucedida
+    if response.status_code == 200 or response.status_code == 201:
+        # Obtém os dados do checkout da resposta da API
+        dados_checkout = response.json()
+
+        # Aqui você pode manipular os dados do checkout, como obter o link de pagamento
+        url_pagamento = None
+        for link in dados_checkout['links']:
+            if link['rel'] == 'PAY':
+                url_pagamento = link['href']
+                break
+
+        if url_pagamento:
+            # Redireciona o usuário para a URL de pagamento
+            print(url_pagamento)
+            return redirect(url_pagamento)
+        else:
+            # Se a URL de pagamento não for encontrada, retorna uma resposta de erro
+            return HttpResponse('URL de pagamento não encontrada', status=500)
+
+    else:
+        # Se a requisição falhar, retorna uma resposta de erro
+        return HttpResponse('Erro ao criar o checkout', status=response.status_code)

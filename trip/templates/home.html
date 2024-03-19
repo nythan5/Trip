@@ -3,6 +3,7 @@
 {% block content %}
   <div class="viagens-disponiveis">
     <h1>Bem-vindo à Agência de Viagens</h1>
+    <a href="{% url "trip:pagamento" %}">pagar</a>
     <hr>
     <div class="row">
       {% for viagem in viagens_disponiveis %}

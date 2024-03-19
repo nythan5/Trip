@@ -36,4 +36,9 @@ urlpatterns = [
     path('listar_viagens_vinculadas/', listar_viagens_vinculadas,
          name='listar_viagens_vinculadas'),
 
+
+    # Pagamentos
+    path('pagamento/', pagamento, name='pagamento')
+
+
 ]
