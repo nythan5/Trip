@@ -154,15 +154,17 @@ def pagamento(request):
     }
 
     # Fazendo a requisição POST para criar o checkout
+    # Fazendo com base na requisição feita via POSTMAN
     response = requests.post(
         url_api_pagseguro, json=dados_checkout, headers=headers)
 
     # Verifica se a requisição foi bem sucedida
     if response.status_code == 200 or response.status_code == 201:
         # Obtém os dados do checkout da resposta da API
+        # Primeiro mandamos um Body e recebemos outro
         dados_checkout = response.json()
 
-        # Aqui você pode manipular os dados do checkout, como obter o link de pagamento
+        # pegando a url de pagamento
         url_pagamento = None
         for link in dados_checkout['links']:
             if link['rel'] == 'PAY':
@@ -171,7 +173,6 @@ def pagamento(request):
 
         if url_pagamento:
             # Redireciona o usuário para a URL de pagamento
-            print(url_pagamento)
             return redirect(url_pagamento)
         else:
             # Se a URL de pagamento não for encontrada, retorna uma resposta de erro
